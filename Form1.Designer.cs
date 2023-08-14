@@ -1,4 +1,4 @@
-﻿namespace ToggreMuter
+﻿namespace ToggleMuter
 {
     partial class MainForm
     {
@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.appList = new System.Windows.Forms.ListBox();
             this.testlabel = new System.Windows.Forms.Label();
             this.labelProcessList = new System.Windows.Forms.Label();
             this.IgnoredList = new System.Windows.Forms.ListBox();
             this.movButton = new System.Windows.Forms.Button();
             this.muteButton = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // appList
@@ -93,6 +95,11 @@
             this.muteButton.UseVisualStyleBackColor = true;
             this.muteButton.Click += new System.EventHandler(this.muteButton_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 2000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -120,6 +127,7 @@
         private System.Windows.Forms.ListBox IgnoredList;
         private System.Windows.Forms.Button movButton;
         private System.Windows.Forms.Button muteButton;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

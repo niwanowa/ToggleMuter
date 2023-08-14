@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using NAudio.CoreAudioApi;
 
-namespace ToggreMuter
+namespace ToggleMuter
 {
     public partial class MainForm : Form
     {
@@ -22,9 +22,27 @@ namespace ToggreMuter
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            //ListBoxに実行中のプロセス読み込み
+            LoadAppList();
+
+            // TimerのTickイベントハンドラを設定
+            timer1.Tick += Timer_Tick;
+            // Timerを開始
+            timer1.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            //ListBoxに実行中のプロセス読み込み
+            LoadAppList();
+        }
+
+        private void LoadAppList()
+        {
             // AudioSessionManagerをインスタンス化してプロセス情報を取得
             AudioSessionManager audioSessionManager = new AudioSessionManager();
             ProcessInfo[] processInfoList = audioSessionManager.GetProcessInfoList();
+            appList.Items.Clear();
 
             // プロセス情報を辞書型に追加
             Dictionary<int, string> processDictionary = new Dictionary<int, string>();
@@ -36,7 +54,7 @@ namespace ToggreMuter
                     processDictionary.Add(processInfo.ProcessId, processInfo.ProcessName);
 
                     // プロセス名だけをlistBoxに追加
-                    appList.Items.Add(processInfo.ProcessName+"("+ processInfo.ProcessId+")");
+                    appList.Items.Add(processInfo.ProcessName + "(" + processInfo.ProcessId + ")");
                 }
             }
 
@@ -112,6 +130,11 @@ namespace ToggreMuter
                     session.SimpleAudioVolume.Mute = !session.SimpleAudioVolume.Mute;
                 }
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
         }
     }
 
