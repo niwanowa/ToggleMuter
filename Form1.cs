@@ -5,15 +5,25 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NAudio.CoreAudioApi;
+using ToggreMuter;
 
 namespace ToggleMuter
 {
     public partial class MainForm : Form
     {
+
+        [DllImport("user32.dll")]
+        extern static int RegisterHotKey(IntPtr hWnd, int id, int modKey, int key);
+
+        [DllImport("user32.dll")]
+        extern static int UnregisterHotKey(IntPtr hWnd, int id);
+
+
         private bool isMuted = false;
         public MainForm()
         {
@@ -67,11 +77,7 @@ namespace ToggleMuter
 
         private void appList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Dictionary<int, string> processDictionary = (Dictionary<int, string>)appList.Tag;
-            int processId = getSelectedProcessId();
-            string processName = processDictionary[processId];
-
-            testlabel.Text = "プロセス名: " + processName + ", プロセスID: " + processId.ToString();
+            //doNothing
         }
 
         private void movButton_Click(object sender, EventArgs e)
@@ -107,6 +113,12 @@ namespace ToggleMuter
 
         private void muteButton_Click(object sender, EventArgs e)
         {
+            execMute();
+            
+        }
+
+        private void execMute()
+        {
             isMuted = !isMuted;
             muteButton.Text = isMuted ? "ミュート解除" : "ミュート";
             List<int> IgnoredProcessIDs = new List<int>();
@@ -135,6 +147,14 @@ namespace ToggleMuter
         private void timer1_Tick(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonSettingHotKey_Click(object sender, EventArgs e)
+        {
+            //ホットキーを設定するためのポップアップを表示
+            HotKeySettingForm hotKeySettingForm = new HotKeySettingForm();
+            hotKeySettingForm.ShowDialog();
+            testlabel.Text = "ホットキー設定：" + string.Join(" + ", hotKeySettingForm.GetHotkeyKeys());
         }
     }
 
