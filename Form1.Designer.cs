@@ -36,6 +36,7 @@
             this.movButton = new System.Windows.Forms.Button();
             this.muteButton = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.buttonSettingHotKey = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // appList
@@ -53,9 +54,9 @@
             this.testlabel.AutoSize = true;
             this.testlabel.Location = new System.Drawing.Point(455, 51);
             this.testlabel.Name = "testlabel";
-            this.testlabel.Size = new System.Drawing.Size(49, 12);
+            this.testlabel.Size = new System.Drawing.Size(116, 12);
             this.testlabel.TabIndex = 1;
-            this.testlabel.Text = "testlabel";
+            this.testlabel.Text = "ホットキー設定：未設定";
             // 
             // labelProcessList
             // 
@@ -100,11 +101,22 @@
             this.timer1.Interval = 2000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // buttonSettingHotKey
+            // 
+            this.buttonSettingHotKey.Location = new System.Drawing.Point(614, 115);
+            this.buttonSettingHotKey.Name = "buttonSettingHotKey";
+            this.buttonSettingHotKey.Size = new System.Drawing.Size(87, 23);
+            this.buttonSettingHotKey.TabIndex = 6;
+            this.buttonSettingHotKey.Text = "ホットキー設定";
+            this.buttonSettingHotKey.UseVisualStyleBackColor = true;
+            this.buttonSettingHotKey.Click += new System.EventHandler(this.buttonSettingHotKey_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(947, 558);
+            this.Controls.Add(this.buttonSettingHotKey);
             this.Controls.Add(this.muteButton);
             this.Controls.Add(this.movButton);
             this.Controls.Add(this.IgnoredList);
@@ -113,6 +125,7 @@
             this.Controls.Add(this.appList);
             this.Name = "MainForm";
             this.Text = "ToggleMuter";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -128,6 +141,7 @@
         private System.Windows.Forms.Button movButton;
         private System.Windows.Forms.Button muteButton;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button buttonSettingHotKey;
     }
 }
 
