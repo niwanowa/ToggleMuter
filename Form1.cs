@@ -17,7 +17,6 @@ namespace ToggleMuter
 {
     public partial class MainForm : Form
     {
-
         //ホットキー関連の関数インポート
         [DllImport("user32.dll")]
         extern static int RegisterHotKey(IntPtr hWnd, int id, int modKey, int key);
@@ -184,17 +183,6 @@ namespace ToggleMuter
             //ホットキーを設定する。
             hotKey = new HotKey(modKey, hotkeyKeys[0]);
             hotKey.HotKeyPush += new EventHandler(execMute);
-        }
-
-        protected override void WndProc(ref Message message)
-        {
-
-            base.WndProc(ref message);
-
-            if (message.Msg == id)
-            {
-                MessageBox.Show("ホットキーが押されました。");
-            }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
