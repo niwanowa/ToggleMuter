@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NAudio.CoreAudioApi;
@@ -17,14 +18,19 @@ namespace ToggleMuter
     public partial class MainForm : Form
     {
 
+        //ホットキー関連の関数インポート
         [DllImport("user32.dll")]
         extern static int RegisterHotKey(IntPtr hWnd, int id, int modKey, int key);
-
         [DllImport("user32.dll")]
         extern static int UnregisterHotKey(IntPtr hWnd, int id);
 
-
+        //ホットキー設定用ID
+        private int id = 0x0000;
+        //ミュート設定フラグ
+        //true:ミュート中 false:ミュート解除中
         private bool isMuted = false;
+        //ホットキーが押されると発火するイベント
+        HotKey hotKey;
         public MainForm()
         {
             InitializeComponent();
@@ -77,7 +83,7 @@ namespace ToggleMuter
 
         private void appList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //doNothing
+            //do nothing
         }
 
         private void movButton_Click(object sender, EventArgs e)
@@ -104,7 +110,7 @@ namespace ToggleMuter
                 int selectedIndex = appList.SelectedIndex;
                 Dictionary<int, string> processDictionary = (Dictionary<int, string>)appList.Tag;
 
-                // 選択されたアイテムからプロセスIDを取得し、辞書型からプロセス名を取得
+                // 選択されたアイテムからプロセスIDを取得し、辞書からプロセス名を取得
                 int processId = (int)processDictionary.Keys.ElementAt(selectedIndex);
                 return processId;
             }
@@ -113,11 +119,10 @@ namespace ToggleMuter
 
         private void muteButton_Click(object sender, EventArgs e)
         {
-            execMute();
-            
+            execMute(null,null);
         }
 
-        private void execMute()
+        private void execMute(object sender, EventArgs e)
         {
             isMuted = !isMuted;
             muteButton.Text = isMuted ? "ミュート解除" : "ミュート";
@@ -146,15 +151,55 @@ namespace ToggleMuter
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-
+            // do nothing
         }
 
         private void buttonSettingHotKey_Click(object sender, EventArgs e)
         {
-            //ホットキーを設定するためのポップアップを表示
+            //ホットキーを設定するための新しいフォームを表示
             HotKeySettingForm hotKeySettingForm = new HotKeySettingForm();
             hotKeySettingForm.ShowDialog();
-            testlabel.Text = "ホットキー設定：" + string.Join(" + ", hotKeySettingForm.GetHotkeyKeys());
+
+            //フォームが閉じられた後にホットキーの設定を行う
+            List<Keys> hotkeyKeys = new List<Keys>(hotKeySettingForm.GetHotkeyKeys());
+            testlabel.Text = "ホットキー設定：" + string.Join(" + ", hotkeyKeys);
+
+            int modKey = 0x0000;
+            if (hotkeyKeys.Contains(Keys.ControlKey))
+            {
+                modKey |= 0x0002;
+                hotkeyKeys.Remove(Keys.ControlKey);
+            }
+            if(hotkeyKeys.Contains(Keys.Menu))
+            {
+                modKey |= 0x0001;
+                hotkeyKeys.Remove(Keys.Menu);
+            }
+            if(hotkeyKeys.Contains(Keys.ShiftKey))
+            {
+                modKey |= 0x0004;
+                hotkeyKeys.Remove(Keys.ShiftKey);
+            }
+
+            //ホットキーを設定する。
+            hotKey = new HotKey(modKey, hotkeyKeys[0]);
+            hotKey.HotKeyPush += new EventHandler(execMute);
+        }
+
+        protected override void WndProc(ref Message message)
+        {
+
+            base.WndProc(ref message);
+
+            if (message.Msg == id)
+            {
+                MessageBox.Show("ホットキーが押されました。");
+            }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            hotKey.Dispose();
         }
     }
 
