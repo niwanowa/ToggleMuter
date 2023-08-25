@@ -29,7 +29,7 @@ namespace ToggleMuter
         //true:ミュート中 false:ミュート解除中
         private bool isMuted = false;
         //ホットキーが押されると発火するイベント
-        HotKey hotKey;
+        HotKey hotKey = null;
         public MainForm()
         {
             InitializeComponent();
@@ -187,7 +187,10 @@ namespace ToggleMuter
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            hotKey.Dispose();
+            if (hotKey != null)
+            {
+                hotKey.Dispose();
+            }
         }
     }
 
