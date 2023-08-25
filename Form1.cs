@@ -143,7 +143,7 @@ namespace ToggleMuter
                 var session = sessions[i];
                 if (!IgnoredProcessIDs.Contains(Convert.ToInt32(session.GetProcessID)))
                 {
-                    session.SimpleAudioVolume.Mute = !session.SimpleAudioVolume.Mute;
+                    session.SimpleAudioVolume.Mute = isMuted;
                 }
             }
         }
