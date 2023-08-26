@@ -17,8 +17,6 @@ namespace ToggleMuter
 {
     public partial class MainForm : Form
     {
-        //ホットキー設定用ID
-        private int id = 0x0000;
         //ミュート設定フラグ
         //true:ミュート中 false:ミュート解除中
         private bool isMuted = false;
