@@ -17,12 +17,6 @@ namespace ToggleMuter
 {
     public partial class MainForm : Form
     {
-        //ホットキー関連の関数インポート
-        [DllImport("user32.dll")]
-        extern static int RegisterHotKey(IntPtr hWnd, int id, int modKey, int key);
-        [DllImport("user32.dll")]
-        extern static int UnregisterHotKey(IntPtr hWnd, int id);
-
         //ホットキー設定用ID
         private int id = 0x0000;
         //ミュート設定フラグ
