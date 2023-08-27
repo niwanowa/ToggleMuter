@@ -49,6 +49,9 @@ namespace ToggleMuter
             // AudioSessionManagerをインスタンス化してプロセス情報を取得
             AudioSessionManager audioSessionManager = new AudioSessionManager();
             ProcessInfo[] processInfoList = audioSessionManager.GetProcessInfoList();
+
+            //選択されたアイテムを保持
+            int selectedIndex = appList.SelectedIndex;
             appList.Items.Clear();
 
             // プロセス情報を辞書型に追加
@@ -63,6 +66,12 @@ namespace ToggleMuter
                     // プロセス名だけをlistBoxに追加
                     appList.Items.Add(processInfo.ProcessName + "(" + processInfo.ProcessId + ")");
                 }
+            }
+
+            // 選択されたアイテムを復元
+            if (selectedIndex >= 0 && selectedIndex < appList.Items.Count)
+            {
+                appList.SelectedIndex = selectedIndex;
             }
 
             // 選択されたアイテムの変更イベントをハンドル
