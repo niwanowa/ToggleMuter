@@ -37,13 +37,14 @@
             this.muteButton = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.buttonSettingHotKey = new System.Windows.Forms.Button();
+            this.labelIgnoredList = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // appList
             // 
             this.appList.FormattingEnabled = true;
             this.appList.ItemHeight = 12;
-            this.appList.Location = new System.Drawing.Point(12, 66);
+            this.appList.Location = new System.Drawing.Point(12, 40);
             this.appList.Name = "appList";
             this.appList.Size = new System.Drawing.Size(558, 472);
             this.appList.TabIndex = 0;
@@ -52,7 +53,7 @@
             // testlabel
             // 
             this.testlabel.AutoSize = true;
-            this.testlabel.Location = new System.Drawing.Point(455, 51);
+            this.testlabel.Location = new System.Drawing.Point(454, 22);
             this.testlabel.Name = "testlabel";
             this.testlabel.Size = new System.Drawing.Size(116, 12);
             this.testlabel.TabIndex = 1;
@@ -61,7 +62,7 @@
             // labelProcessList
             // 
             this.labelProcessList.AutoSize = true;
-            this.labelProcessList.Location = new System.Drawing.Point(12, 51);
+            this.labelProcessList.Location = new System.Drawing.Point(10, 22);
             this.labelProcessList.Name = "labelProcessList";
             this.labelProcessList.Size = new System.Drawing.Size(66, 12);
             this.labelProcessList.TabIndex = 2;
@@ -71,14 +72,14 @@
             // 
             this.IgnoredList.FormattingEnabled = true;
             this.IgnoredList.ItemHeight = 12;
-            this.IgnoredList.Location = new System.Drawing.Point(738, 306);
+            this.IgnoredList.Location = new System.Drawing.Point(693, 280);
             this.IgnoredList.Name = "IgnoredList";
             this.IgnoredList.Size = new System.Drawing.Size(197, 232);
             this.IgnoredList.TabIndex = 3;
             // 
             // movButton
             // 
-            this.movButton.Location = new System.Drawing.Point(614, 251);
+            this.movButton.Location = new System.Drawing.Point(602, 162);
             this.movButton.Name = "movButton";
             this.movButton.Size = new System.Drawing.Size(75, 23);
             this.movButton.TabIndex = 4;
@@ -88,7 +89,7 @@
             // 
             // muteButton
             // 
-            this.muteButton.Location = new System.Drawing.Point(614, 185);
+            this.muteButton.Location = new System.Drawing.Point(602, 114);
             this.muteButton.Name = "muteButton";
             this.muteButton.Size = new System.Drawing.Size(75, 23);
             this.muteButton.TabIndex = 5;
@@ -103,7 +104,7 @@
             // 
             // buttonSettingHotKey
             // 
-            this.buttonSettingHotKey.Location = new System.Drawing.Point(614, 115);
+            this.buttonSettingHotKey.Location = new System.Drawing.Point(602, 66);
             this.buttonSettingHotKey.Name = "buttonSettingHotKey";
             this.buttonSettingHotKey.Size = new System.Drawing.Size(87, 23);
             this.buttonSettingHotKey.TabIndex = 6;
@@ -111,11 +112,21 @@
             this.buttonSettingHotKey.UseVisualStyleBackColor = true;
             this.buttonSettingHotKey.Click += new System.EventHandler(this.buttonSettingHotKey_Click);
             // 
+            // labelIgnoredList
+            // 
+            this.labelIgnoredList.AutoSize = true;
+            this.labelIgnoredList.Location = new System.Drawing.Point(691, 265);
+            this.labelIgnoredList.Name = "labelIgnoredList";
+            this.labelIgnoredList.Size = new System.Drawing.Size(86, 12);
+            this.labelIgnoredList.TabIndex = 7;
+            this.labelIgnoredList.Text = "ミュート除外リスト";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(947, 558);
+            this.ClientSize = new System.Drawing.Size(900, 519);
+            this.Controls.Add(this.labelIgnoredList);
             this.Controls.Add(this.buttonSettingHotKey);
             this.Controls.Add(this.muteButton);
             this.Controls.Add(this.movButton);
@@ -142,6 +153,7 @@
         private System.Windows.Forms.Button muteButton;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button buttonSettingHotKey;
+        private System.Windows.Forms.Label labelIgnoredList;
     }
 }
 
