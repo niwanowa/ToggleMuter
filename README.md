@@ -32,4 +32,4 @@ ToggleMuterは、特定のアプリケーション以外の音声をミュート
 - Twitter: [@niwa_nowa](https://twitter.com/niwa_nowa)
 
 ---
-Copyright © [年] [あなたの名前]
+Copyright © [2023] [niwanowa]
