@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34003.232
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToggreMuter", "ToggreMuter.csproj", "{F4FE5379-C270-47F3-85B5-80210A8D9B3C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToggleMuter", "ToggleMuter.csproj", "{F4FE5379-C270-47F3-85B5-80210A8D9B3C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目", "ソリューション項目", "{E5510273-0F48-4F19-BFBB-1C21CCDB5D4F}"
 EndProject
