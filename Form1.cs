@@ -68,6 +68,8 @@ namespace ToggleMuter
                 }
             }
 
+            RemoveMissingItems(appList, IgnoredList);
+
             // 選択されたアイテムを復元
             if (selectedIndex >= 0 && selectedIndex < appList.Items.Count)
             {
@@ -184,6 +186,18 @@ namespace ToggleMuter
             //ホットキーを設定する。
             hotKey = new HotKey(modKey, hotkeyKeys[0]);
             hotKey.HotKeyPush += new EventHandler(execMute);
+        }
+
+        public static void RemoveMissingItems(ListBox listBoxA, ListBox listBoxB)
+        {
+            for (int i = listBoxB.Items.Count - 1; i >= 0; i--)
+            {
+                string itemB = listBoxB.Items[i].ToString();
+                if (!listBoxA.Items.Contains(itemB))
+                {
+                    listBoxB.Items.RemoveAt(i);
+                }
+            }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
