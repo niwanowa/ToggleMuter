@@ -33,7 +33,7 @@
             this.testlabel = new System.Windows.Forms.Label();
             this.labelProcessList = new System.Windows.Forms.Label();
             this.IgnoredList = new System.Windows.Forms.ListBox();
-            this.movButton = new System.Windows.Forms.Button();
+            this.moveButton = new System.Windows.Forms.Button();
             this.muteButton = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.buttonSettingHotKey = new System.Windows.Forms.Button();
@@ -49,6 +49,7 @@
             this.appList.Size = new System.Drawing.Size(558, 472);
             this.appList.TabIndex = 0;
             this.appList.SelectedIndexChanged += new System.EventHandler(this.appList_SelectedIndexChanged);
+            this.appList.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.PressSettingHotKey);
             // 
             // testlabel
             // 
@@ -77,15 +78,16 @@
             this.IgnoredList.Size = new System.Drawing.Size(197, 232);
             this.IgnoredList.TabIndex = 3;
             // 
-            // movButton
+            // moveButton
             // 
-            this.movButton.Location = new System.Drawing.Point(602, 162);
-            this.movButton.Name = "movButton";
-            this.movButton.Size = new System.Drawing.Size(75, 23);
-            this.movButton.TabIndex = 4;
-            this.movButton.Text = "追加/削除";
-            this.movButton.UseVisualStyleBackColor = true;
-            this.movButton.Click += new System.EventHandler(this.movButton_Click);
+            this.moveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.moveButton.Location = new System.Drawing.Point(602, 162);
+            this.moveButton.Name = "moveButton";
+            this.moveButton.Size = new System.Drawing.Size(75, 23);
+            this.moveButton.TabIndex = 4;
+            this.moveButton.Text = "追加/削除";
+            this.moveButton.UseVisualStyleBackColor = true;
+            this.moveButton.Click += new System.EventHandler(this.moveButton_Click);
             // 
             // muteButton
             // 
@@ -129,7 +131,7 @@
             this.Controls.Add(this.labelIgnoredList);
             this.Controls.Add(this.buttonSettingHotKey);
             this.Controls.Add(this.muteButton);
-            this.Controls.Add(this.movButton);
+            this.Controls.Add(this.moveButton);
             this.Controls.Add(this.IgnoredList);
             this.Controls.Add(this.labelProcessList);
             this.Controls.Add(this.testlabel);
@@ -149,7 +151,7 @@
         private System.Windows.Forms.Label testlabel;
         private System.Windows.Forms.Label labelProcessList;
         private System.Windows.Forms.ListBox IgnoredList;
-        private System.Windows.Forms.Button movButton;
+        private System.Windows.Forms.Button moveButton;
         private System.Windows.Forms.Button muteButton;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button buttonSettingHotKey;

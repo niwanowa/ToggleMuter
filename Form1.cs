@@ -88,7 +88,12 @@ namespace ToggleMuter
             //do nothing
         }
 
-        private void movButton_Click(object sender, EventArgs e)
+        private void moveButton_Click(object sender, EventArgs e)
+        {
+            moveProcess();
+        }
+
+        private void moveProcess()
         {
             Dictionary<int, string> processDictionary = (Dictionary<int, string>)appList.Tag;
             int processId = getSelectedProcessId();
@@ -205,6 +210,15 @@ namespace ToggleMuter
             if (hotKey != null)
             {
                 hotKey.Dispose();
+            }
+        }
+
+        private void PressSettingHotKey(object sender, PreviewKeyDownEventArgs e)
+        {
+            //spaceキーが押されたらmoveProcessを実行
+            if (e.KeyCode == Keys.Space)
+            {
+                moveProcess();
             }
         }
     }
