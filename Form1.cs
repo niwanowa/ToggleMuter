@@ -221,6 +221,11 @@ namespace ToggleMuter
                 moveProcess();
             }
         }
+
+        private void testlabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public class AudioSessionManager
