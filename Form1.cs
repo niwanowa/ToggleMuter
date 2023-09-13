@@ -58,13 +58,13 @@ namespace ToggleMuter
             Dictionary<int, string> processDictionary = new Dictionary<int, string>();
             if (processInfoList != null)
             {
-                foreach (var processInfo in processInfoList)
+                foreach (var info in processInfoList)
                 {
                     // プロセスIDとプロセス名を辞書型に追加
-                    processDictionary.Add(processInfo.ProcessId, processInfo.ProcessName);
+                    processDictionary.Add(info.ProcessId, info.ProcessName);
 
-                    // プロセス名だけをlistBoxに追加
-                    appList.Items.Add(processInfo.ProcessName + "(" + processInfo.ProcessId + ")");
+                    // プロセス名だけlistBoxに追加
+                    appList.Items.Add(info.ProcessName + "(" + info.ProcessId + ")");
                 }
             }
 
@@ -222,10 +222,7 @@ namespace ToggleMuter
             }
         }
 
-        private void testlabel_Click(object sender, EventArgs e)
-        {
 
-        }
     }
 
     public class AudioSessionManager

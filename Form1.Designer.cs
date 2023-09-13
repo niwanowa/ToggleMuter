@@ -59,7 +59,6 @@
             this.testlabel.Size = new System.Drawing.Size(116, 12);
             this.testlabel.TabIndex = 1;
             this.testlabel.Text = "ホットキー設定：未設定";
-            this.testlabel.Click += new System.EventHandler(this.testlabel_Click);
             // 
             // labelProcessList
             // 
