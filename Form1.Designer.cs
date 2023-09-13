@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.appList = new System.Windows.Forms.ListBox();
             this.testlabel = new System.Windows.Forms.Label();
             this.labelProcessList = new System.Windows.Forms.Label();
@@ -140,6 +141,7 @@
             this.Controls.Add(this.labelProcessList);
             this.Controls.Add(this.testlabel);
             this.Controls.Add(this.appList);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "ToggleMuter";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);

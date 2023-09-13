@@ -17,6 +17,15 @@ namespace ToggleMuter
 {
     public partial class MainForm : Form
     {
+
+        //タスクバーにアイコンを表示するためのクラス
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+
+        const int WM_SETICON = 0x80;
+        const int ICON_SMALL = 0;
+        const int ICON_BIG = 1;
+
         //ミュート設定フラグ
         //true:ミュート中 false:ミュート解除中
         private bool isMuted = false;
@@ -154,6 +163,11 @@ namespace ToggleMuter
                     session.SimpleAudioVolume.Mute = isMuted;
                 }
             }
+
+            //タスクバーのアイコンを更新
+            Icon appIcon = isMuted ? Properties.Resources.icon_volume_x : Properties.Resources.icon_volume;
+            SendMessage(this.Handle, WM_SETICON, (IntPtr)ICON_SMALL, appIcon.Handle);
+            SendMessage(this.Handle, WM_SETICON, (IntPtr)ICON_BIG, appIcon.Handle);
         }
 
         private void timer1_Tick(object sender, EventArgs e)

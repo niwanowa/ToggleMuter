@@ -59,5 +59,25 @@ namespace ToggleMuter.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   (アイコン) に類似した型 System.Drawing.Icon のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Icon icon_volume {
+            get {
+                object obj = ResourceManager.GetObject("icon_volume", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   (アイコン) に類似した型 System.Drawing.Icon のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Icon icon_volume_x {
+            get {
+                object obj = ResourceManager.GetObject("icon_volume_x", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }
