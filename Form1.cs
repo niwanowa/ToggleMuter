@@ -183,6 +183,14 @@ namespace ToggleMuter
 
             //フォームが閉じられた後にホットキーの設定を行う
             List<Keys> hotkeyKeys = new List<Keys>(hotKeySettingForm.GetHotkeyKeys());
+            
+            //ホットキーが設定されていない場合は何もしない
+            if(hotkeyKeys.Count == 0)
+            {
+                return;
+            }
+
+            //ホットキーの設定をラベルに表示
             testlabel.Text = "ホットキー設定：" + string.Join(" + ", hotkeyKeys);
 
             int modKey = 0x0000;

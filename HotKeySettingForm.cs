@@ -27,9 +27,18 @@ namespace ToggreMuter
 
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
-            // OKボタンがクリックされたときにフォームを閉じる
-            DialogResult = DialogResult.OK;
-            Close();
+            // ホットキーが設定されていない場合はエラーを表示
+            if (HotkeyKeys.Count == 0)
+            {
+                MessageBox.Show("ホットキーが設定されていません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                // OKボタンがクリックされたときにフォームを閉じる
+                DialogResult = DialogResult.OK;
+                Close();
+            }
         }
 
         private void HotKeySettingForm_KeyDown(object sender, KeyEventArgs e)
