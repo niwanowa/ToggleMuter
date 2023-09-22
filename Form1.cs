@@ -17,7 +17,7 @@ namespace ToggleMuter
 {
     public partial class MainForm : Form
     {
-
+        //test
         //タスクバーにアイコンを表示するためのクラス
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
