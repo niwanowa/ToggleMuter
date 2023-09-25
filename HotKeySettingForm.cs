@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ToggreMuter
+namespace ToggleMuter
 {
     public partial class HotKeySettingForm : Form
     {

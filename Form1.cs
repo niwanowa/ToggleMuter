@@ -11,7 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NAudio.CoreAudioApi;
-using ToggreMuter;
+using ToggleMuter;
 
 namespace ToggleMuter
 {

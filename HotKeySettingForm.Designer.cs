@@ -1,4 +1,4 @@
-﻿namespace ToggreMuter
+﻿namespace ToggleMuter
 {
     partial class HotKeySettingForm
     {
