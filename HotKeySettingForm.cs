@@ -52,7 +52,7 @@ namespace ToggreMuter
             }
             else
             {
-                if(!HotkeyKeys.Contains(e.KeyCode))
+                if (!HotkeyKeys.Contains(e.KeyCode))
                 {
                     HotkeyKeys.Add(e.KeyCode);
                     KeyCount++;

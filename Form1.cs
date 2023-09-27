@@ -134,7 +134,7 @@ namespace ToggleMuter
 
         private void muteButton_Click(object sender, EventArgs e)
         {
-            execMute(null,null);
+            execMute(null, null);
         }
 
         private void execMute(object sender, EventArgs e)
@@ -182,9 +182,9 @@ namespace ToggleMuter
 
             //フォームが閉じられた後にホットキーの設定を行う
             List<Keys> hotkeyKeys = new List<Keys>(hotKeySettingForm.GetHotkeyKeys());
-            
+
             //ホットキーが設定されていない場合は何もしない
-            if(hotkeyKeys.Count == 0)
+            if (hotkeyKeys.Count == 0)
             {
                 return;
             }
@@ -198,12 +198,12 @@ namespace ToggleMuter
                 modKey |= 0x0002;
                 hotkeyKeys.Remove(Keys.ControlKey);
             }
-            if(hotkeyKeys.Contains(Keys.Menu))
+            if (hotkeyKeys.Contains(Keys.Menu))
             {
                 modKey |= 0x0001;
                 hotkeyKeys.Remove(Keys.Menu);
             }
-            if(hotkeyKeys.Contains(Keys.ShiftKey))
+            if (hotkeyKeys.Contains(Keys.ShiftKey))
             {
                 modKey |= 0x0004;
                 hotkeyKeys.Remove(Keys.ShiftKey);
@@ -236,7 +236,7 @@ namespace ToggleMuter
 
         private void PressSettingHotKey(object sender, PreviewKeyDownEventArgs e)
         {
-            //spaceキーが押されたらmoveProcessを実行
+            //spaceキーが押されたら、moveProcessを実行
             if (e.KeyCode == Keys.Space)
             {
                 moveProcess();
