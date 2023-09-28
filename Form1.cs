@@ -1,17 +1,10 @@
-﻿using System;
+﻿using NAudio.CoreAudioApi;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using NAudio.CoreAudioApi;
-using ToggleMuter;
 
 namespace ToggleMuter
 {
@@ -21,15 +14,16 @@ namespace ToggleMuter
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
-        const int WM_SETICON = 0x80;
-        const int ICON_SMALL = 0;
-        const int ICON_BIG = 1;
+        private const int WM_SETICON = 0x80;
+        private const int ICON_SMALL = 0;
+        private const int ICON_BIG = 1;
 
         //ミュート設定フラグ
         //true:ミュート中 false:ミュート解除中
         private bool isMuted = false;
+
         //ホットキーが押されると発火するイベント
-        HotKey hotKey = null;
+        private HotKey hotKey = null;
         public MainForm()
         {
             InitializeComponent();
@@ -66,13 +60,13 @@ namespace ToggleMuter
             Dictionary<int, string> processDictionary = new Dictionary<int, string>();
             if (processInfoList != null)
             {
-                foreach (var info in processInfoList)
+                foreach (ProcessInfo info in processInfoList)
                 {
                     // プロセスIDとプロセス名を辞書型に追加
                     processDictionary.Add(info.ProcessId, info.ProcessName);
 
                     // プロセス名だけlistBoxに追加
-                    appList.Items.Add(info.ProcessName + "(" + info.ProcessId + ")");
+                    _ = appList.Items.Add(info.ProcessName + "(" + info.ProcessId + ")");
                 }
             }
 
@@ -106,11 +100,11 @@ namespace ToggleMuter
             Dictionary<int, string> processDictionary = (Dictionary<int, string>)appList.Tag;
             int processId = getSelectedProcessId();
             string processName = processDictionary[processId];
-            String listText = processName + "(" + processId + ")";
+            string listText = processName + "(" + processId + ")";
 
             if (!IgnoredList.Items.Contains(listText))
             {
-                IgnoredList.Items.Add(listText);
+                _ = IgnoredList.Items.Add(listText);
             }
             else
             {
@@ -126,7 +120,7 @@ namespace ToggleMuter
                 Dictionary<int, string> processDictionary = (Dictionary<int, string>)appList.Tag;
 
                 // 選択されたアイテムからプロセスIDを取得し、辞書からプロセス名を取得
-                int processId = (int)processDictionary.Keys.ElementAt(selectedIndex);
+                int processId = processDictionary.Keys.ElementAt(selectedIndex);
                 return processId;
             }
             return -1;
@@ -142,21 +136,21 @@ namespace ToggleMuter
             isMuted = !isMuted;
             muteButton.Text = isMuted ? "ミュート解除" : "ミュート";
             List<int> IgnoredProcessIDs = new List<int>();
-            foreach (String listText in IgnoredList.Items)
+            foreach (string listText in IgnoredList.Items)
             {
                 int start = listText.IndexOf("(") + 1;
                 int end = listText.IndexOf(")");
-                String processID = listText.Substring(start, end - start);
-                IgnoredProcessIDs.Add(Int32.Parse(processID));
+                string processID = listText.Substring(start, end - start);
+                IgnoredProcessIDs.Add(int.Parse(processID));
             }
 
             MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
             MMDevice defaultDevice = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
 
-            var sessions = defaultDevice.AudioSessionManager.Sessions;
+            SessionCollection sessions = defaultDevice.AudioSessionManager.Sessions;
             for (int i = 0; i < sessions.Count; i++)
             {
-                var session = sessions[i];
+                AudioSessionControl session = sessions[i];
                 if (!IgnoredProcessIDs.Contains(Convert.ToInt32(session.GetProcessID)))
                 {
                     session.SimpleAudioVolume.Mute = isMuted;
@@ -165,8 +159,8 @@ namespace ToggleMuter
 
             //タスクバーのアイコンを更新
             Icon appIcon = isMuted ? Properties.Resources.icon_volume_x : Properties.Resources.icon_volume;
-            SendMessage(this.Handle, WM_SETICON, (IntPtr)ICON_SMALL, appIcon.Handle);
-            SendMessage(this.Handle, WM_SETICON, (IntPtr)ICON_BIG, appIcon.Handle);
+            _ = SendMessage(Handle, WM_SETICON, (IntPtr)ICON_SMALL, appIcon.Handle);
+            _ = SendMessage(Handle, WM_SETICON, (IntPtr)ICON_BIG, appIcon.Handle);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -178,7 +172,7 @@ namespace ToggleMuter
         {
             //ホットキーを設定するための新しいフォームを表示
             HotKeySettingForm hotKeySettingForm = new HotKeySettingForm();
-            hotKeySettingForm.ShowDialog();
+            _ = hotKeySettingForm.ShowDialog();
 
             //フォームが閉じられた後にホットキーの設定を行う
             List<Keys> hotkeyKeys = new List<Keys>(hotKeySettingForm.GetHotkeyKeys());
@@ -196,17 +190,17 @@ namespace ToggleMuter
             if (hotkeyKeys.Contains(Keys.ControlKey))
             {
                 modKey |= 0x0002;
-                hotkeyKeys.Remove(Keys.ControlKey);
+                _ = hotkeyKeys.Remove(Keys.ControlKey);
             }
             if (hotkeyKeys.Contains(Keys.Menu))
             {
                 modKey |= 0x0001;
-                hotkeyKeys.Remove(Keys.Menu);
+                _ = hotkeyKeys.Remove(Keys.Menu);
             }
             if (hotkeyKeys.Contains(Keys.ShiftKey))
             {
                 modKey |= 0x0004;
-                hotkeyKeys.Remove(Keys.ShiftKey);
+                _ = hotkeyKeys.Remove(Keys.ShiftKey);
             }
 
             //ホットキーを設定する。
@@ -242,7 +236,7 @@ namespace ToggleMuter
 
         private void PressSettingHotKey(object sender, PreviewKeyDownEventArgs e)
         {
-            //spaceキーが押されたらmoveProcessを実行
+            //spaceキーが押されたら、moveProcessを実行
             if (e.KeyCode == Keys.Space)
             {
                 moveProcess();
@@ -253,12 +247,11 @@ namespace ToggleMuter
 
         public class AudioSessionManager
     {
-        private MMDeviceEnumerator deviceEnumerator;
-        private MMDevice defaultPlaybackDevice;
+        private readonly MMDevice defaultPlaybackDevice;
 
         public AudioSessionManager()
         {
-            deviceEnumerator = new MMDeviceEnumerator();
+            MMDeviceEnumerator deviceEnumerator = new MMDeviceEnumerator();
             defaultPlaybackDevice = deviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
         }
 
@@ -266,15 +259,15 @@ namespace ToggleMuter
         {
             if (defaultPlaybackDevice != null)
             {
-                var sessionManager = defaultPlaybackDevice.AudioSessionManager;
-                var sessions = sessionManager.Sessions;
+                NAudio.CoreAudioApi.AudioSessionManager sessionManager = defaultPlaybackDevice.AudioSessionManager;
+                SessionCollection sessions = sessionManager.Sessions;
 
                 ProcessInfo[] processInfoList = new ProcessInfo[sessions.Count];
                 for (int i = 0; i < sessions.Count; i++)
                 {
-                    var session = sessions[i];
-                    var processId = session.GetProcessID;
-                    var process = System.Diagnostics.Process.GetProcessById((int)processId);
+                    AudioSessionControl session = sessions[i];
+                    uint processId = session.GetProcessID;
+                    System.Diagnostics.Process process = System.Diagnostics.Process.GetProcessById((int)processId);
 
                     processInfoList[i] = new ProcessInfo
                     {
@@ -286,7 +279,7 @@ namespace ToggleMuter
                 return processInfoList;
             }
 
-            return null;
+            return new ProcessInfo[1];
         }
     }
     public class ProcessInfo

@@ -1,37 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ToggleMuter
 {
     public partial class HotKeySettingForm : Form
     {
-        private List<Keys> hotkeyKeys = new List<Keys>();
-
-        int keyCount = 0;
         public HotKeySettingForm()
         {
             InitializeComponent();
         }
 
         public Keys SelectedHotkey { get; private set; }
-        public List<Keys> HotkeyKeys { get => hotkeyKeys; set => hotkeyKeys = value; }
-        public int KeyCount { get => keyCount; set => keyCount = value; }
+        public List<Keys> HotkeyKeys { get; set; } = new List<Keys>();
+        public int KeyCount { get; set; } = 0;
 
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
             // ホットキーが設定されていない場合はエラーを表示
             if (HotkeyKeys.Count == 0)
             {
-                MessageBox.Show("ホットキーが設定されていません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                _ = MessageBox.Show("ホットキーが設定されていません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -52,7 +41,7 @@ namespace ToggleMuter
             }
             else
             {
-                if(!HotkeyKeys.Contains(e.KeyCode))
+                if (!HotkeyKeys.Contains(e.KeyCode))
                 {
                     HotkeyKeys.Add(e.KeyCode);
                     KeyCount++;
