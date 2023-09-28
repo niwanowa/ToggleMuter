@@ -222,7 +222,16 @@ namespace ToggleMuter
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            hotKey?.Dispose();
+            if (hotKey != null)
+            {
+                hotKey.Dispose();
+            }
+
+            //ミュート状態の場合はミュートを解除する
+            if (isMuted)
+            {
+                execMute(null, null);
+            }
         }
 
         private void PressSettingHotKey(object sender, PreviewKeyDownEventArgs e)
@@ -234,10 +243,9 @@ namespace ToggleMuter
             }
         }
 
-
     }
 
-    public class AudioSessionManager
+        public class AudioSessionManager
     {
         private readonly MMDevice defaultPlaybackDevice;
 
